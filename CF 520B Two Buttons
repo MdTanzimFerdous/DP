@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define ff first
+#define ss second
+#define pb push_back
+#define mx 25000
+
+int n, m;
+
+int dp[mx];
+
+int rec(int n)
+{
+    if(n == m) return 0;
+    if(n < 1) return 2e9;
+
+    if(dp[n] != -1) return dp[n];
+
+    dp[n] = 2e9;
+    dp[n] = min(dp[n], 1 + rec(n - 1));
+    if(n < m)
+        dp[n] = min(dp[n], 1 + rec(2 * n));
+
+    return dp[n];
+}
+
+int main()
+{
+    memset(dp, -1, sizeof dp);
+    cin >> n >> m;
+    if(n >= m)
+        cout << n - m << endl;
+    else
+        cout << rec(n) << endl;
+
+    return 0;
+}
